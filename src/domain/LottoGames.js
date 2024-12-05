@@ -2,7 +2,8 @@ import InputView from "../view/InputView.js";
 
 class LottoGames {
   async play() {
-    await InputView.readLineMoney();
+    const money = await InputView.readLineMoney();
+    console.log(money);
   }
 }
 
