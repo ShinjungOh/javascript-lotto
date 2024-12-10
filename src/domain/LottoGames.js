@@ -1,7 +1,8 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import InputView from "../view/InputView.js";
 import Lotto from "./Lotto.js";
-import { ascendingNumbers } from "../utils/utils.js";
+import OutputView from "../view/OutputView.js";
+import { ascendingNumbers, divideCountByThousand } from "../utils/utils.js";
 
 class LottoGames {
   async play() {
@@ -12,6 +13,9 @@ class LottoGames {
     const sortNumbers = ascendingNumbers(randomNumber);
     console.log(sortNumbers);
     const lotto = new Lotto(sortNumbers);
+
+    const count = divideCountByThousand(money);
+    OutputView.printCount(count);
   }
 }
 
