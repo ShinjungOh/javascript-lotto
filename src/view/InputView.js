@@ -16,7 +16,8 @@ class InputView {
   }
 
   static #isNotANumber(input) {
-    if (Number.isNaN(Number(input))) {
+    const number = Number(input);
+    if (Number.isNaN(number) || !Number.isInteger(number)) {
       throw new Error('[ERROR] 숫자만 입력해야 합니다.');
     }
   }
