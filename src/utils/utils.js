@@ -2,8 +2,8 @@ export const divideCountByThousand = (price) => {
   return (price / 1000);
 }
 
-export const ascendingNumbers = (number) => {
-  return number.sort();
+export const ascendingNumbers = (numbers) => {
+  return numbers.sort((a, b) => a - b);
 }
 
 export const addThousandComma = (number) => {

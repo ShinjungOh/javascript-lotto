@@ -7,7 +7,6 @@ import { ascendingNumbers, divideCountByThousand, range } from "../utils/utils.j
 class LottoGames {
   async play() {
     const money = await InputView.readLineMoney();
-
     const count = divideCountByThousand(money);
     OutputView.printCount(count);
 
@@ -15,10 +14,12 @@ class LottoGames {
       const lottoCount = range(count);
       lottoCount.forEach(() => {
         const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-        const lotto = new Lotto(ascendingNumbers(randomNumber));
+        const sortNumber = ascendingNumbers(randomNumber);
+        const lotto = new Lotto(sortNumber);
         OutputView.printLotto(lotto.lotto);
       });
     }
+
     makeLottoByCount(count);
   }
 }
