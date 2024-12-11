@@ -5,6 +5,9 @@ import OutputView from "../view/OutputView.js";
 import { ascendingNumbers, divideCountByThousand, range } from "../utils/utils.js";
 
 class LottoGames {
+  #lotto;
+  #bonus;
+
   async play() {
     const money = await InputView.readLineMoney();
     const count = divideCountByThousand(money);
@@ -18,9 +21,26 @@ class LottoGames {
         const lotto = new Lotto(sortNumber);
         OutputView.printLotto(lotto.lotto);
       });
+      OutputView.printNewLine();
     }
 
     makeLottoByCount(count);
+
+    await this.#getLotto();
+    await this.#getBonus();
+  }
+
+  async #getLotto() {
+    const lottoNumber = await InputView.readLineLottoNumber();
+    console.log(lottoNumber);
+    this.#lotto = lottoNumber;
+    OutputView.printNewLine();
+  }
+
+  async #getBonus() {
+    const bonusNumber = await InputView.readLineBonusNumber(this.#lotto);
+    console.log(bonusNumber);
+    this.#bonus = bonusNumber;
   }
 }
 

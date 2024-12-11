@@ -2,6 +2,7 @@ import { MissionUtils } from "@woowacourse/mission-utils";
 
 class OutputView {
   static printCount(count) {
+    this.printNewLine();
     MissionUtils.Console.print(`${count}개를 구매했습니다.`);
   }
 
@@ -10,7 +11,7 @@ class OutputView {
   }
 
   static printNewLine() {
-    MissionUtils.Console.print('\n');
+    MissionUtils.Console.print('');
   }
 
   static printResult() {
