@@ -27,12 +27,15 @@
 
 - 구입 금액 입력받기
   - 로또 1장의 가격은 1,000원
+  - 구입 금액은 1,000원 단위로 입력 받기
+  - 1,000원으로 나누어 떨어지지 않는 경우 예외 처리
 
 ### 로또 발행하기
 
 - 1개의 로또를 발행할 때 중복되지 않는 6개의 숫자를 뽑기
   - `Random.pickUniqueNumbersInRange` 사용
 - 구입 금액만큼 로또 갯수 발행하기 
+- 로또 번호는 오름차순으로 정렬하기 
 
 ### 당첨 번호 추첨하기
 
@@ -45,21 +48,22 @@
 
 - 당첨 기준과 금액에 따라 당첨 내역 발표하기
   - 당첨액 합계와 구입 금액으로 수익률 계산하기
+    - 소수점 둘째 자리에서 반올림 
 
 ### 예외 상황 처리하기
 
 - 사용자가 잘못된 값을 입력할 경우 "[ERROR]"로 시작하는 메시지 출력
 - `Error`를 발생시키기
-- 해당 에러 메시지를 출력한 다음 해당 지점부터 다시 입력을 받기
+- 해당 에러 메시지를 출력한 다음 해당 지점부터 다시 입력 받기
 
 ### 라이브러리
 
-- `@woowacourse/mission-utils`에서 제공하는 `Random` 및 `Console` API를 사용하여 구현해야 한다.
-  - Random 값 추출은 `Random. pickUniqueNumbersInRange()`를 활용한다.
-  - 사용자의 값을 입력 및 출력하려면 `Console.readLineAsync()`와 `Console.print()`를 활용한다.
+* `@woowacourse/mission-utils`에서 제공하는 `Random` 및 `Console` API를 사용하여 구현해야 한다.
+  * Random 값 추출은 `Random. pickUniqueNumbersInRange()`를 활용한다. 
+  * 사용자의 값을 입력 및 출력하려면 `Console.readLineAsync()`와 `Console.print()`를 활용한다.
 
-- [@woowacourse/mission-utils](https://www.npmjs.com/package/@woowacourse/mission-utils)
-- [random.js](https://github.com/woowacourse-projects/javascript-mission-utils/blob/main/src/random.js)
+* [@woowacourse/mission-utils](https://www.npmjs.com/package/@woowacourse/mission-utils)
+* [random.js](https://github.com/woowacourse-projects/javascript-mission-utils/blob/main/src/random.js)
 
 #### 사용 예시
 
@@ -75,15 +79,21 @@ MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
 
 ### 입력
 
+- 로또 구입 금액을 입력 받는다. 구입 금액은 1,000원 단위로 입력 받으며 1,000원으로 나누어 떨어지지 않는 경우 예외 처리한다.
+
 ```
-# 로또 구입 금액을 입력 받는다. 
-# 구입 금액은 1,000원 단위로 입력 받으며 1,000원으로 나누어 떨어지지 않는 경우 예외 처리한다.
 14000
+```
 
-# 당첨 번호를 입력 받는다. 번호는 쉼표(,)를 기준으로 구분한다.
+- 당첨 번호를 입력 받는다. 번호는 쉼표(,)를 기준으로 구분한다.
+
+```
 1,2,3,4,5,6
+```
 
-# 보너스 번호를 입력 받는다.
+-  보너스 번호를 입력 받는다.
+
+```
 7
 ```
 
