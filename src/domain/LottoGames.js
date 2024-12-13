@@ -1,11 +1,14 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 import InputView from "../view/InputView.js";
 import Lotto from "./Lotto.js";
+import LottoWinner from "./LottoWinner.js";
+import LottoResult from "./LottoResult.js";
 import OutputView from "../view/OutputView.js";
 import { ascendingNumbers, divideCountByThousand, range } from "../utils/utils.js";
 
 class LottoGames {
-  #lotto;
+  #lotto = [];
+  #numbers;
   #bonus;
 
   async play() {
@@ -19,6 +22,7 @@ class LottoGames {
         const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
         const sortNumber = ascendingNumbers(randomNumber);
         const lotto = new Lotto(sortNumber);
+        this.#lotto.push(lotto.lotto);
         OutputView.printLotto(lotto.lotto);
       });
       OutputView.printNewLine();
@@ -28,19 +32,29 @@ class LottoGames {
 
     await this.#getLotto();
     await this.#getBonus();
+
+    const lottoWinner = new LottoWinner(this.#lotto, this.#numbers, this.#bonus);
+    lottoWinner.checkNumberCount();
+    const winner = lottoWinner.winner;
+
+    const prize = 5_000;
+    const lottoResult = new LottoResult(winner);
+    const prizeRate = lottoResult.getPrizeRate(count, prize);
+
+    const finalWinner = lottoResult.calculatePrize();
+    OutputView.printResult(finalWinner, prizeRate);
   }
 
   async #getLotto() {
     const lottoNumber = await InputView.readLineLottoNumber();
-    console.log(lottoNumber);
-    this.#lotto = lottoNumber;
+    this.#numbers = lottoNumber;
     OutputView.printNewLine();
   }
 
   async #getBonus() {
-    const bonusNumber = await InputView.readLineBonusNumber(this.#lotto);
-    console.log(bonusNumber);
+    const bonusNumber = await InputView.readLineBonusNumber(this.#numbers);
     this.#bonus = bonusNumber;
+    OutputView.printNewLine();
   }
 }
 
