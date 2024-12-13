@@ -132,3 +132,36 @@ at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
 at async App.run (file:///Users/sjoh/precourse/javascript-lotto/src/App.js:6:5)
 at async file:///Users/sjoh/precourse/javascript-lotto/src/index.js:4:1
 ```
+
+<br>
+
+## MissionUtils 사용 방법  
+
+### 에러 출력 시
+
+해당 에러 메시지를 출력한 다음 해당 지점부터 다시 입력 받는 경우
+
+* 시작할 때
+  * `async play(steps = STEPS.price) { ... }`
+  * constants 파일에 step 설정
+  * 입력받는 단위로 메소드를 잘게 나눌 것 
+
+```
+✅ MissionUtils.Console.print(e.message);
+
+catch (e) {
+    MissionUtils.Console.print(e.message);
+    return this.play(step);
+}
+```
+
+```
+// 테스트 코드 예시 
+
+ logs.forEach((log) => {
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+});
+```
+
+* 유효성 검사의 에러 메시지 예시
+  * `throw new Error('[ERROR] 중복 번호는 입력할 수 없습니다.');`

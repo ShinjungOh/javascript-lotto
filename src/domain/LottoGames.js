@@ -32,19 +32,23 @@ class LottoGames {
       // 보너스 번호 1개 입력받기
       if (steps === STEPS.bonus) {
         await this.#getBonus();
+        steps = 'result';
       }
+
       // 결과 출력
-      const lottoWinner = new LottoWinner(this.#lotto, this.#numbers, this.#bonus);
-      lottoWinner.checkNumberCount();
-      const winner = lottoWinner.winner;
+      if (steps === STEPS.result) {
+        const lottoWinner = new LottoWinner(this.#lotto, this.#numbers, this.#bonus);
+        lottoWinner.checkNumberCount();
+        const winner = lottoWinner.winner;
 
-      const lottoResult = new LottoResult(winner);
-      const prize = lottoResult.calculatePrize();
-      const prizeRate = lottoResult.getPrizeRate(this.#count, prize);
+        const lottoResult = new LottoResult(winner);
+        const prize = lottoResult.calculatePrize();
+        const prizeRate = lottoResult.getPrizeRate(this.#count, prize);
 
-      OutputView.printResult(winner, prizeRate);
+        OutputView.printResult(winner, prizeRate);
+      }
     } catch (e) {
-      OutputView.printError(e);
+      MissionUtils.Console.print(e.message);
       return this.play(steps);
     }
   }
