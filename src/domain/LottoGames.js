@@ -12,25 +12,16 @@ class LottoGames {
   #bonus;
 
   async play() {
-    const money = await InputView.readLineMoney();
-    const count = divideCountByThousand(money);
+    // 가격 입력받기
+    const count = await this.#getPrice();
     OutputView.printCount(count);
 
-    const makeLottoByCount = (count) => {
-      const lottoCount = range(count);
-      lottoCount.forEach(() => {
-        const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
-        const sortNumber = ascendingNumbers(randomNumber);
-        const lotto = new Lotto(sortNumber);
-        this.#lotto.push(lotto.lotto);
-        OutputView.printLotto(lotto.lotto);
-      });
-      OutputView.printNewLine();
-    }
+    this.#makeLottoByCount(count);
 
-    makeLottoByCount(count);
-
+    // 로또 번호 6개 입력받기
     await this.#getLotto();
+
+    // 보너스 번호 1개 입력받기
     await this.#getBonus();
 
     const lottoWinner = new LottoWinner(this.#lotto, this.#numbers, this.#bonus);
@@ -42,6 +33,24 @@ class LottoGames {
     const prizeRate = lottoResult.getPrizeRate(count, prize);
 
     OutputView.printResult(winner, prizeRate);
+  }
+
+  async #getPrice() {
+    const money = await InputView.readLineMoney();
+    const count = divideCountByThousand(money);
+    return count;
+  }
+
+  #makeLottoByCount(count) {
+    const lottoCount = range(count);
+    lottoCount.forEach(() => {
+      const randomNumber = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+      const sortNumber = ascendingNumbers(randomNumber);
+      const lotto = new Lotto(sortNumber);
+      this.#lotto.push(lotto.lotto);
+      OutputView.printLotto(lotto.lotto);
+    });
+    OutputView.printNewLine();
   }
 
   async #getLotto() {
