@@ -14,6 +14,10 @@ class OutputView {
     MissionUtils.Console.print('');
   }
 
+  static printError(error) {
+    MissionUtils.Console.print(error);
+  }
+
   static printResult(winner, rate) {
     MissionUtils.Console.print('당첨 통계');
     MissionUtils.Console.print('---');

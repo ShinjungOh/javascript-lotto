@@ -1,4 +1,4 @@
-export const prizeMoney = {
+export const PRIZE_MONEY = {
   6: 2_000_000_000,
   5: 30_000_000,
   4: 1_500_000,

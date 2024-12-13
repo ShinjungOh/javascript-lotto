@@ -5,34 +5,48 @@ import LottoWinner from "./LottoWinner.js";
 import LottoResult from "./LottoResult.js";
 import OutputView from "../view/OutputView.js";
 import { ascendingNumbers, divideCountByThousand, range } from "../utils/utils.js";
+import { STEPS } from "../constants/steps.js";
 
 class LottoGames {
   #lotto = [];
   #numbers;
   #bonus;
+  #count;
 
-  async play() {
+  async play(steps = STEPS.price) {
     // 가격 입력받기
-    const count = await this.#getPrice();
-    OutputView.printCount(count);
+    try {
+      if (steps === STEPS.price) {
+        this.#count = await this.#getPrice();
+        OutputView.printCount(this.#count);
+        this.#makeLottoByCount(this.#count);
+        steps = 'lotto';
+      }
 
-    this.#makeLottoByCount(count);
+      // 로또 번호 6개 입력받기
+      if (steps === STEPS.lotto) {
+        await this.#getLotto();
+        steps = 'bonus';
+      }
 
-    // 로또 번호 6개 입력받기
-    await this.#getLotto();
+      // 보너스 번호 1개 입력받기
+      if (steps === STEPS.bonus) {
+        await this.#getBonus();
+      }
+      // 결과 출력
+      const lottoWinner = new LottoWinner(this.#lotto, this.#numbers, this.#bonus);
+      lottoWinner.checkNumberCount();
+      const winner = lottoWinner.winner;
 
-    // 보너스 번호 1개 입력받기
-    await this.#getBonus();
+      const lottoResult = new LottoResult(winner);
+      const prize = lottoResult.calculatePrize();
+      const prizeRate = lottoResult.getPrizeRate(this.#count, prize);
 
-    const lottoWinner = new LottoWinner(this.#lotto, this.#numbers, this.#bonus);
-    lottoWinner.checkNumberCount();
-    const winner = lottoWinner.winner;
-
-    const lottoResult = new LottoResult(winner);
-    const prize = lottoResult.calculatePrize();
-    const prizeRate = lottoResult.getPrizeRate(count, prize);
-
-    OutputView.printResult(winner, prizeRate);
+      OutputView.printResult(winner, prizeRate);
+    } catch (e) {
+      OutputView.printError(e);
+      return this.play(steps);
+    }
   }
 
   async #getPrice() {

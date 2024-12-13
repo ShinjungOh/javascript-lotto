@@ -1,4 +1,4 @@
-import { prizeMoney } from "../constants/winner.js";
+import { PRIZE_MONEY } from "../constants/winner.js";
 
 class LottoResult {
   #winner;
@@ -10,23 +10,23 @@ class LottoResult {
   calculatePrize() {
     let total = 0;
     if (this.#winner["2"] !== 0) {
-      total += prizeMoney[2] * this.#winner["2"];
+      total += PRIZE_MONEY[2] * this.#winner["2"];
     }
 
     if (this.#winner["3"] !== 0) {
-      total += prizeMoney[3] * this.#winner["3"];
+      total += PRIZE_MONEY[3] * this.#winner["3"];
     }
 
     if (this.#winner["4"] !== 0) {
-      total += prizeMoney[4] * this.#winner["4"];
+      total += PRIZE_MONEY[4] * this.#winner["4"];
     }
 
     if (this.#winner["5"] !== 0) {
-      total += prizeMoney[5] * this.#winner["5"];
+      total += PRIZE_MONEY[5] * this.#winner["5"];
     }
 
     if (this.#winner["6"] !== 0) {
-      total += prizeMoney[6] * this.#winner["6"];
+      total += PRIZE_MONEY[6] * this.#winner["6"];
     }
 
     return total;

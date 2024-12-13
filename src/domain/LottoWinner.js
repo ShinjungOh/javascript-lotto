@@ -4,7 +4,7 @@ class LottoWinner {
   #bonus;
   #winner
 
-  constructor(lotto, numbers, bonus, winner) {
+  constructor(lotto, numbers, bonus) {
     this.#lotto = lotto;
     this.#numbers = numbers;
     this.#bonus = bonus;
@@ -60,6 +60,5 @@ class LottoWinner {
     return this.#winner;
   }
 }
-
 
 export default LottoWinner;
