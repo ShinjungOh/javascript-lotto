@@ -37,12 +37,11 @@ class LottoGames {
     lottoWinner.checkNumberCount();
     const winner = lottoWinner.winner;
 
-    const prize = 5_000;
     const lottoResult = new LottoResult(winner);
+    const prize = lottoResult.calculatePrize();
     const prizeRate = lottoResult.getPrizeRate(count, prize);
 
-    const finalWinner = lottoResult.calculatePrize();
-    OutputView.printResult(finalWinner, prizeRate);
+    OutputView.printResult(winner, prizeRate);
   }
 
   async #getLotto() {
